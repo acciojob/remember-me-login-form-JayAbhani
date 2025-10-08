@@ -1,16 +1,29 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-	<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Remember Me: Login Form</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
-</script>
+  <h1>Login Form</h1>
 
+  <form id="login-form">
+    <input type="text" id="username" placeholder="Username" />
+    <input type="password" id="password" placeholder="Password" />
+
+    <label>
+      <input type="checkbox" id="checkbox" />
+      Remember me.
+    </label>
+
+    <input type="submit" id="submit" value="Submit" />
+  </form>
+
+  <!-- Hidden initially; shown only if creds exist in localStorage -->
+  <button id="existing" style="display:none;">Login as existing user</button>
+
+  <script src="./script.js"></script>
 </body>
-
 </html>
