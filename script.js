@@ -1,52 +1,49 @@
 (function () {
-  const LS_KEY = "loginCreds";
-
   const form = document.getElementById("login-form");
   const usernameInput = document.getElementById("username");
   const passwordInput = document.getElementById("password");
   const rememberCheckbox = document.getElementById("checkbox");
   const existingBtn = document.getElementById("existing");
 
-  // Helper: show/hide the "Login as existing user" button
-  function updateExistingVisibility() {
-    const saved = localStorage.getItem(LS_KEY);
-    existingBtn.style.display = saved ? "block" : "none";
+  function credsExist() {
+    return localStorage.getItem("username") && localStorage.getItem("password");
   }
 
-  // On load: ensure fields are empty, checkbox unchecked, and visibility is correct
+  function updateExistingVisibility() {
+    existingBtn.style.display = credsExist() ? "block" : "none";
+  }
+
   window.addEventListener("DOMContentLoaded", () => {
+    // Ensure initial expectations: empty fields & unchecked checkbox
     usernameInput.value = "";
     passwordInput.value = "";
     rememberCheckbox.checked = false;
     updateExistingVisibility();
   });
 
-  // Submit behavior
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
     const username = usernameInput.value.trim();
-    const password = passwordInput.value; // allow empty if needed by tests
+    const password = passwordInput.value;
 
-    // Always alert login with current username
     alert(`Logged in as ${username}`);
 
     if (rememberCheckbox.checked) {
-      // Save credentials
-      localStorage.setItem(LS_KEY, JSON.stringify({ username, password }));
+      localStorage.setItem("username", username);
+      localStorage.setItem("password", password);
     } else {
-      // Remove previously saved credentials
-      localStorage.removeItem(LS_KEY);
+      localStorage.removeItem("username");
+      localStorage.removeItem("password");
     }
 
     updateExistingVisibility();
   });
 
-  // Existing user login
   existingBtn.addEventListener("click", () => {
-    const saved = localStorage.getItem(LS_KEY);
-    if (!saved) return; // Safety
-    const { username } = JSON.parse(saved);
-    alert(`Logged in as ${username}`);
+    const savedUsername = localStorage.getItem("username");
+    if (savedUsername) {
+      alert(`Logged in as ${savedUsername}`);
+    }
   });
 })();

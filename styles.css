@@ -1,4 +1,3 @@
-/* Minimal styles to satisfy visibility checks; adjust as needed */
 body { font-family: sans-serif; padding: 20px; }
 form { display: flex; flex-direction: column; gap: 10px; max-width: 320px; }
 #existing { margin-top: 14px; }
